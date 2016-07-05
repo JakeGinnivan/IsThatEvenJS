@@ -66,6 +66,37 @@
             link.type = 'text/css';
             link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
             document.getElementsByTagName( 'head' )[0].appendChild( link );
+
+            function runCode(id, logId) {
+                var log
+                try {
+                    var output = Babel.transform(
+                        document.getElementById(id).innerText,
+                        { presets: ['es2015', 'stage-0', 'stage-1', 'stage-2', 'stage-3'] }).code;
+                } catch (err) {
+                    log = err.message
+                    document.getElementById(logId).innerText = log
+                    return
+                }
+                var toRun = "(function(){ " +
+                    "var log = '';" +
+                    "var oldLog = console.log; " +
+                    "console.log = function () { " +
+                    "    log = log + '\\r\\n' + [].reduce.call(arguments, function(p, v) { return p ? p + ', ' + v : v }, '');" +
+                    "}; " +
+                    "(function() {" +
+                    output +
+                    "})();" +
+                    "console.log = oldLog;" +
+                    "return log; " +
+                    "})();";
+                try {
+                    log = eval(toRun);
+                } catch (err) {
+                    log = 'ERR: ' + err.message
+                }
+                document.getElementById(logId).innerText = log
+            }
         </script>
     </head>
     <body>
@@ -79,6 +110,49 @@
                     <h3 class="inverted old-school">Jake Ginnivan<h3>
                 </section>
 
+                
+                <section>
+                    <h2 class="computer">Who likes JavaScript?</h2>
+                    <div class="side-by-side">
+                        <div><pre class="fragment"><code>var a = 1 b = 1;</code></pre></div>
+                        <div><pre class="fragment"><code>// b is a global :(</code></pre></div>
+                    </div>
+                    <div class="side-by-side">
+                        <div><pre class="fragment"><code>'true' == true;
+'' == true</code></pre></div>
+                        <div><pre class="fragment"><code>// false
+// true</code></pre></div>
+                    </div>
+
+                    <div class="side-by-side">
+                        <div><pre class="fragment"><code>function getObj() {
+    return { haha: "ha!" };
+} getObj();</code></pre></div>
+                        <div><pre class="fragment"><code>// undefined - { is a scope, not an object</code></pre></div>
+                    </div>
+
+                    <div class="side-by-side">
+                        <div><pre class="fragment"><code>function getObj() {
+    return
+        "ha!";
+} getObj();</code></pre></div>
+                        <div><pre class="fragment"><code>// undefined - ASI
+return;
+    "ha!";</code></pre></div>
+                    </div>
+
+<div class="side-by-side">
+                        <div><pre class="fragment"><code>for (var i = 0; i < 10; i++) {
+  setTimeout(
+    function() { console.log (i); },
+    10)
+};</code></pre></div>
+                        <div><pre class="fragment"><code>// outputs 10, 10, 10, 10, 10,
+// 10, 10, 10, 10, 10</code></pre></div>
+                    </div>
+                    
+                </section>
+
                 <section>
                     <section>
                         <img src="/imgs/brendan-eich-2-sized.jpg" />
@@ -86,7 +160,7 @@
                     </section>
                     <section>
                         ... and he saved us from
-                        <p class="fragment"><img src="/imgs/javacup.jpg" />	</p>
+                        <img src="/imgs/javacup.jpg" />
                     </section>
                 </section>
 
@@ -98,7 +172,9 @@
                         </span>
                         <span class="fragment">... in 10 days</span>
                     </p>
-                    <p class="fragment">~September 1995 - Renamed to LiveScript</p>
+                    <p class="fragment">
+                        September 1995 - Renamed to LiveScript
+                    </p>
                     <p class="fragment">
                         December 1995 - Renamed to JavaScript, trademark issued only to Netscape
                     </p>
@@ -123,65 +199,342 @@
                     <p class="fragment">1998 - ECMAScript 2 (ES2)</p>
                     <p class="fragment">1999 - ECMAScript 3 (ES3)</p>
                     <p class="fragment"><img src="imgs/tumbleweed.gif" /></p>
-                    <p>
-                        <div class="fragment">
-                            <div class="fragment strike">2008 - ES4</div>
-                        </div>
-                    </p>
                     <p class="fragment">2009 - ECMAScript 5 (ES5)</p>
-                    <p class="fragment">2015 - ECMAScript 6 (ES6)</p>
+                    <p class="fragment">2015 - ECMAScript <span class="fragment strike">6 (ES6)</span><div class="fragment" style="margin-left: 38%">2015 (ES2015)</div></p>
                 </section>
 
                 <section>
+                    <h2>ES2015 was a HUGE release!</h2>
+                    <br />
+                    <div class="fragment">
+                      <h3>The goals were better support for:</h3>
+                      <ol>
+                        <li>Complex Apps</li>
+                        <li>Libraries</li>
+                        <li>Code Generators</li>
+                      </ol>
+                    </div>
+
+                    <div class="fragment">
+                      <br />
+                      Also, must be backwards compatible. i.e <i>Thou shalt not break the web!</i>
+                    </div>
+                </section>
+
+<!--
+    BLOCK SCOPING
+-->
+                <section>
+<h3>Block Scoping</h3>
+<pre><code contenteditable id="blockScoping" style="white-space: pre">var foo = 1
+if (true) {
+    var foo = 5
+    console.log(foo)
+}
+console.log(foo)</code></pre>
+                
+<pre><code id="blockScopingLog"></code><pre>
+<input type="button" onclick="runCode('blockScoping', 'blockScopingLog')" value="Run" />
+                </section>
+
+<!--
+    CLASSES
+-->
+                <section>
+                    <h3>Classes</h3>
                     <div class="side-by-side">
-<!--ES5-->
 <div>
-<h3>ES5</h3>
-<pre><code>function Cat(name) {
-    this.name = name
+<h4>ES5</h4>
+<pre><code>function Square(width, height) {
+    this.width = width
+    this.height = height
 }
-
-Cat.prototype.speak = function() {
-    console.log('Bark, woof')
-}
-
-Cat.prototype.attack = function(enemy) {
-    console.log('Feed me')
+Square.prototype.area = function() {
+    return this.width * this.height
 }</code></pre>
 </div>
 <div class="fragment">
-<!--ES6-->
-<h3>ES6</h3>
-<pre><code >class Cat {
-    constructor(name) {
-        this.name = name
+<h4>ES6</h4>
+<pre><code>class Square {
+    constructor(width, height) {
+        this.width = width
+        this.height = height
     }
 
-    draw() {
-        console.log('Meow')
+    area() {
+        return this.width * this.height
     }
-     attack(enemy) {
-        console.log('')
-    }
+}</code></pre>
+</div>
+</div>
+                </section>
+
+<!--
+    Arrow Functions
+-->
+                <section>
+                    <h3>Arrow Functions</h3>
+                    <div class="side-by-side">
+<div>
+<h4>ES5</h4>
+<pre><code>class Api {
+  parseResult(result) {
+  ...
+  }
+
+  getData(url, cb) {
+    let _this = this
+    fetch(url, function(result) {
+      cb(_this.parseResult(result))
+    })
+  }
+}</code></pre>
+</div>
+<div class="fragment">
+<h4>ES6</h4>
+<pre><code>class Api {
+  parseResult(result) {
+    ...
+  }
+
+  getData(url, cb) {
+    fetch(url, result => {
+      cb(this.parseResult(result))
+    })
+  }
+}</code></pre>
+</div>
+</div>
+                </section>
+
+
+<!--
+    Promises
+-->
+                <section>
+                    <h3>Promises</h3>
+                    <div class="side-by-side">
+<div>
+<h4>Before</h4>
+<pre><code>class Api {
+  parseResult(result) {
+    ...
+  }
+
+  getData(url, cb) {
+    fetch(url, result => {
+      cb(this.parseResult(result))
+    })
+  }
+}</code></pre>
+</div>
+<div class="fragment">
+<h4>ES6</h4>
+<pre><code>class Api {
+  parseResult(result) {
+    ...
+  }
+
+  getData(url) {
+    return fetch(url)
+      .then(result => parseResult(result))
+  }
 }</code></pre>
 </div>
 </div>
                 </section>
 
                 <section>
-<h3>ES5</h3>
-<pre><code contenteditable>function Cat(name) {
-    this.name = name
-}
-
-Cat.prototype.speak = function() {
-    console.log('Bark, woof')
-}
-
-Cat.prototype.attack = function(enemy) {
-    console.log('Feed me')
-}</code></pre>
+                    <h3>Promises</h3>
+                    <div class="side-by-side">
+<div>
+<h4>Before</h4>
+<pre><code>step1(function (value1) {
+    step2(value1, function(value2) {
+        step3(value2, function(value3) {
+            step4(value3, function(value4) {
+                // Do something with value4
+            });
+        });
+    });
+});</code></pre>
+</div>
+<div class="fragment">
+<h4>ES6</h4>
+<pre><code>apiCall()
+  .then(promisedStep1)
+  .then(promisedStep2)
+  .then(promisedStep3)
+  .then(promisedStep4)
+  .then(function (value4) {
+      // Do something with value4
+  })
+  .catch(function (error) {
+      // Handle any error from all above steps
+  })</code></pre>
+</div>
+</div>
                 </section>
+
+
+<!--
+    Enhanced Object Literals
+-->
+                <section>
+<h3>Enhanced Object Literals</h3>
+<pre><code style="white-space: pre">var obj = {
+    // __proto__
+    __proto__: theProtoObj,
+
+    // Shorthand for ‘handler: handler’
+    handler,
+
+    // Methods
+    toString() {
+     // Super calls
+     return "d " + super.toString();
+    },
+
+    // Computed (dynamic) property names
+    [ 'prop_' + (() => 42)() ]: 42
+};</code></pre>
+                </section>
+
+
+<!--
+    Modules SECTION
+-->
+                <section>
+                  <h2>Modules</h2>
+                </section>
+
+
+                <section>
+                  <img src="imgs/scriptTags.png" />
+                </section>
+
+
+                <section data-background="white">
+                  <img style="display: inline-block; width: 40%; vertical-align: middle; border: none; box-shadow: none" src="imgs/requirejs.jpg" />
+
+                  <img style="display: inline-block; width: 40%; vertical-align: middle; border: none; box-shadow: none" src="imgs/angularjs.png" />
+                </section>
+
+
+                <section data-background="white">
+                  <div><img style="border: none; box-shadow: none" src="imgs/nodejs.png" /><div>
+                  <div class="fragment">
+                    <img style="display: inline-block; width: 40%; vertical-align: middle; border: none; box-shadow: none" src="imgs/npm.png" />
+
+                    <img style="display: inline-block; width: 40%; vertical-align: middle; border: none; box-shadow: none" src="imgs/commonjs.png" />
+                  </div>
+                </section>
+
+
+                <section data-background="white">
+                  <img style="display: inline-block; width: 40%; vertical-align: middle; border: none; box-shadow: none" src="imgs/browserify.png" />
+
+                  <img style="display: inline-block; width: 40%; vertical-align: middle; border: none; box-shadow: none" src="imgs/webpack.png" />
+
+                  <div><img style="border: none; box-shadow: none" src="imgs/jspm.png" /><div>
+                </section>
+
+
+                <section>
+<h3>Modules</h3>
+<pre><code style="white-space: pre">import _ from 'lodash'
+import { sum } from './math'
+
+function pow() {
+  return _.reduce(arguments, (total, n) => sum(total, n), 0)
+}
+export { pow }
+export default pow</code></pre>
+                </section>
+
+                <section>
+<h3>System.JS</h3>
+<pre><code style="white-space: pre">// Dynamic loading – ‘System’ is default loader
+System.import('lib/math').then(function(m) {
+  alert("2π = " + m.sum(m.pi, m.pi));
+});</code></pre>
+                </section>
+<!--
+    ENDModules SECTION
+-->
+
+                <section>
+                  <h2>Why ECMA 2015?</h2>
+                  <br />
+                  <br />
+                  <div class="fragment">ES6 was way too large</div>
+                </section>
+
+                <section>
+                  <h2>Solution: the TC39 process</h2>
+
+                  <div class="fragment">
+                    <h3>Stage 0: Strawman</h3>
+                    Submitted by a TC39 member or contributor, just an idea
+                  </div>
+
+                  <div class="fragment">
+                    <h3>Stage 1: proposal</h3>
+                    Needs a champion, needs to have problem, solution and issues
+                  </div>
+
+                  <div class="fragment">
+                    <h3>Stage 2: draft</h3>
+                    Eventual inclusion of feature is likely, must be quite complete and have implementations
+                  </div>
+
+                  <div class="fragment">
+                    <h3>Stage 3: candidate</h3>
+                    Spec must be complete, needs feedback
+                  </div>
+
+                  <div class="fragment">
+                    <h3>Stage 4: finished</h3>
+                    Signed off, has acceptance tests, been used practically
+                  </div>
+                </section>
+
+                <section>
+<h3>Template strings</h3>
+<pre><code style="white-space: pre">let multiline = `This
+is a
+multiline string!`</code></pre>
+
+<pre class="fragment"><code style="white-space: pre">let jake = { name: 'Jake', employer: 'Readify' }
+  
+let formatted = `My name is ${jake.name} and I work with ${jake.employer}`</code></pre>
+                </section>
+
+                <section>
+<h3>Destructuring</h3>
+
+<pre><code style="white-space: pre" contenteditable id="destructuring">let jake = {
+  name: 'Jake',
+  employer: { name: 'Readify' },
+  contact: [
+    { type: 'twitter', value: '@JakeGinnivan' },
+    { type: 'email', value: 'jake@ginnivan.net' },
+  ]}
+let {
+  name, employer: { name: companyName},
+  contact: [ { value: primaryContact }, { value: secondaryContact }] } = jake
+  
+let formatted = `My name is ${name} and I work with ${companyName}
+contact me at ${primaryContact} or ${secondaryContact}`
+console.log(formatted)</code></pre>
+
+<pre><code id="destructuringLog"></code><pre>
+<input type="button" onclick="runCode('destructuring', 'destructuringLog')" value="Run" />
+</div>
+                </section>
+<!--
+    END
+-->
             </div>
         </div>
 
@@ -198,7 +551,8 @@ Cat.prototype.attack = function(enemy) {
                     { src: 'plugin/markdown/marked.js' },
                     { src: 'plugin/markdown/markdown.js' },
                     { src: 'plugin/notes/notes.js', async: true },
-                    { src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+                    { src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+                    { src: 'bower_components/babel-standalone/babel.min.js' },
                 ]
             });
         </script>
