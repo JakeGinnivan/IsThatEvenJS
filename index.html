@@ -12,6 +12,53 @@
         <!-- Theme used for syntax highlighting of code -->
         <link rel="stylesheet" href="lib/css/zenburn.css">
 
+        <style>
+.side-by-side {
+    display: flex;
+    align-items: 'stretch';
+}
+
+    .side-by-side>div:first-child {
+        flex: 0 0 50%;
+        display: flex;
+        flex-direction: column;
+    }
+        .side-by-side>div:first-child pre {
+            flex: 1;
+        }
+        .side-by-side>div:first-child code {
+            height: 100%;
+            margin: 0 10px;
+        }
+    .side-by-side>div:last-child {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+    }
+        .side-by-side>div:last-child pre {
+            flex: 1;
+        }
+        .side-by-side>div:last-child code {
+            height: 100%;
+            margin: 0 10px;
+        }
+
+    /*.side-by-side>pre:first-child {
+        flex: 0 0 50%;
+    }
+        .side-by-side>pre:first-child code {
+            height:100%;
+            margin: 0 10px;
+        }
+    .side-by-side>pre:last-child {
+        flex: 1;
+    }
+        .side-by-side>pre:last-child code {
+            height: 100%;
+            margin: 0 10px;
+        }*/
+        </style>
+
         <!-- Printing and PDF exports -->
         <script>
             var link = document.createElement( 'link' );
@@ -86,7 +133,54 @@
                 </section>
 
                 <section>
+                    <div class="side-by-side">
+<!--ES5-->
+<div>
+<h3>ES5</h3>
+<pre><code>function Cat(name) {
+    this.name = name
+}
 
+Cat.prototype.speak = function() {
+    console.log('Bark, woof')
+}
+
+Cat.prototype.attack = function(enemy) {
+    console.log('Feed me')
+}</code></pre>
+</div>
+<div class="fragment">
+<!--ES6-->
+<h3>ES6</h3>
+<pre><code >class Cat {
+    constructor(name) {
+        this.name = name
+    }
+
+    draw() {
+        console.log('Meow')
+    }
+     attack(enemy) {
+        console.log('')
+    }
+}</code></pre>
+</div>
+</div>
+                </section>
+
+                <section>
+<h3>ES5</h3>
+<pre><code contenteditable>function Cat(name) {
+    this.name = name
+}
+
+Cat.prototype.speak = function() {
+    console.log('Bark, woof')
+}
+
+Cat.prototype.attack = function(enemy) {
+    console.log('Feed me')
+}</code></pre>
                 </section>
             </div>
         </div>
