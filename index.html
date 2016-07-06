@@ -97,6 +97,19 @@
                 }
                 document.getElementById(logId).innerText = log
             }
+
+            function compile(id, logId) {
+                var log
+                try {
+                    var output = Babel.transform(
+                        document.getElementById(id).innerText,
+                        { presets: ['es2015', 'stage-0', 'stage-1', 'stage-2', 'stage-3'] }).code;
+                    document.getElementById(logId).innerText = output
+                } catch (err) {
+                    log = err.message
+                    document.getElementById(logId).innerText = log
+                }
+            }
         </script>
     </head>
     <body>
@@ -159,7 +172,7 @@ return;
                         <p class="fragment">Brendan Eich</p>
                     </section>
                     <section>
-                        ... and he saved us from
+                        <div>... and he saved us from</div>
                         <img src="/imgs/javacup.jpg" />
                     </section>
                 </section>
@@ -269,6 +282,20 @@ Square.prototype.area = function() {
 </div>
                 </section>
 
+
+                <section>
+                    <h3>Classes contd</h3>
+<pre><code>class ReactComponent extends React.Component {
+  static propTypes = {
+    prop1: React.PropTypes.string
+  }
+
+  constructor(props) {
+    super(props)
+  }
+}</code></pre>
+                </section>
+
 <!--
     Arrow Functions
 -->
@@ -305,6 +332,8 @@ Square.prototype.area = function() {
 }</code></pre>
 </div>
 </div>
+
+<pre class="fragment"><code>() => ({ implicit: 'return object' })</code></pre>
                 </section>
 
 
@@ -370,7 +399,8 @@ Square.prototype.area = function() {
       // Do something with value4
   })
   .catch(function (error) {
-      // Handle any error from all above steps
+      // Handle any error from
+      // all above steps
   })</code></pre>
 </div>
 </div>
@@ -474,27 +504,27 @@ System.import('lib/math').then(function(m) {
                   <h2>Solution: the TC39 process</h2>
 
                   <div class="fragment">
-                    <h3>Stage 0: Strawman</h3>
+                    <h4 style='margin-top: 30px; margin-bottom: 0'>Stage 0: Strawman</h4>
                     Submitted by a TC39 member or contributor, just an idea
                   </div>
 
                   <div class="fragment">
-                    <h3>Stage 1: proposal</h3>
+                    <h4 style='margin-top: 30px; margin-bottom: 0'>Stage 1: proposal</h4>
                     Needs a champion, needs to have problem, solution and issues
                   </div>
 
                   <div class="fragment">
-                    <h3>Stage 2: draft</h3>
+                    <h4 style='margin-top: 30px; margin-bottom: 0'>Stage 2: draft</h4>
                     Eventual inclusion of feature is likely, must be quite complete and have implementations
                   </div>
 
                   <div class="fragment">
-                    <h3>Stage 3: candidate</h3>
+                    <h4 style='margin-top: 30px; margin-bottom: 0'>Stage 3: candidate</h4>
                     Spec must be complete, needs feedback
                   </div>
 
                   <div class="fragment">
-                    <h3>Stage 4: finished</h3>
+                    <h4 style='margin-top: 30px; margin-bottom: 0'>Stage 4: finished</h4>
                     Signed off, has acceptance tests, been used practically
                   </div>
                 </section>
@@ -530,7 +560,190 @@ console.log(formatted)</code></pre>
 
 <pre><code id="destructuringLog"></code><pre>
 <input type="button" onclick="runCode('destructuring', 'destructuringLog')" value="Run" />
+                </section>
+
+                <section>
+<h3>Destructuring for method args</h3>
+
+<pre><code style="white-space: pre" contenteditable id="destructuringMethod">let jake = {
+  name: 'Jake',
+  employer: { name: 'Readify' },
+  contact: [
+    { type: 'twitter', value: '@JakeGinnivan' },
+    { type: 'email', value: 'jake@ginnivan.net' },
+  ]}
+
+function formatName({
+  name, employer: { name: companyName},
+  contact: [ { value: primaryContact }, { value: secondaryContact }]
+}) {
+  let formatted = `My name is ${name} and I work with ${companyName}
+  contact me at ${primaryContact} or ${secondaryContact}`
+  console.log(formatted)
+}
+
+formatName(jake)
+</code></pre>
+
+<pre><code id="destructuringMethodLog"></code><pre>
+<input type="button" onclick="runCode('destructuringMethod', 'destructuringMethodLog')" value="Run" />
+                </section>
+
+                <section>
+<h3>Default + Rest + Spread</h3>
+
+<pre><code style="white-space: pre" contenteditable id="spread">function sum(x, y=12) { return x + y }
+
+function (x, ...rest) { return x * rest.length }
+
+sum(...[1, 2]) // 3
+</code></pre>
+                </section>
+
+                <section>
+<h3>Spread continued</h3>
+
+<pre><code style="white-space: pre">var arr = [2, 3]
+[1, ...arr, 4] // [1, 2, 3, 4]
+
+//
+// STAGE 2 Features
+//
+// Rest Properties
+let { x, y, ...z } = { x: 1, y: 2, a: 3, b: 4 };
+x; // 1
+y; // 2
+z; // { a: 3, b: 4 }
+
+// Spread properties
+let n = { x, y, ...z };
+</code></pre>
+                </section>
+
+<!--Type improvements-->
+
+                <section>
+<h3>Symbols / Iterators</h3>
+
+<pre><code style="white-space: pre" contenteditable id="symbols">// Symbols
+Symbol('Hi') === Symbol('Hi') // false
+
+let fibonacci = {
+  [Symbol.iterator]() { // Symbol.iterator is a well known symbol
+    let pre = 0, cur = 1;
+    return {
+      next() { // you have to return a object with a 'next' function
+        [pre, cur] = [cur, pre + cur];
+        // each time next is called return { done: boolean, value: any }
+        return { done: false, value: cur } 
+      }
+    }
+  }
+}
+
+for (var n of fibonacci) {  if (n > 1000) break; console.log(n); }
+</code></pre>
+
+<pre><code id="symbolsLog" style='max-height: 150px'></code><pre>
+<input type="button" onclick="runCode('symbols', 'symbolsLog')" value="Run" />
+                </section>
+
+
+                <section>
+<h3>Generators</h3>
+
+<pre><code style="white-space: pre" contenteditable id="generators">let fibonacci = {
+  [Symbol.iterator]: function*() {
+    var pre = 0, cur = 1;
+    for (;;) {
+      var temp = pre;
+      pre = cur;
+      cur += temp;
+      yield cur;
+    }
+  }
+}
+
+for (var n of fibonacci) { if (n > 1000) break; console.log(n); }
+</code></pre>
+
+<pre><code id="generatorsLog" style='max-height: 200px'></code><pre>
+<input type="button" onclick="compile('generators', 'generatorsLog')" value="Compile" />
+                </section>
+
+
+                <section>
+<h3>Async/Await - Stage 3</h3>
+
+<pre><code style='white-space: pre; max-height: 500px'>import { usingFixture } from 'testHelpers/portal-fixture'
+import fetchMock from 'fetch-mock'
+import { ListUser } from '../components/users-list'
+import { Link } from 'react-router'
+import expect from 'expect'
+
+describe('Manage users', function () {
+  it('Can view users', usingFixture(async (fixture) => {
+    // Arrange
+    await fixture.login()
+
+    // Act
+    const users = await fixture.mountUrl('/user-admin')
+
+    // Assert
+    const userRow = users.find(ListUser)
+    expect(userRow.length).toBe(1)
+    expect(userRow.props().user).toEqual(user)
+    const manageLink = userRow.find(Link)
+    expect(manageLink.props().to).toBe('/user-admin/1')
+  }))
+})
+</code></pre>
+                </section>
+
+                <section>
+                  <h3>Type Improvements</h3>
+                  <ul>
+                    <li>Maps</li>
+                    <li class="fragment">WeakMaps</li>
+                    <li class="fragment">Sets</li>
+                    <li class="fragment">WeakSets</li>
+                    <li class="fragment">Proxies</li>
+                    <li class="fragment">Number.*</li>
+                    <li class="fragment">Math.*</li>
+                    <li class="fragment">Array.*</li>
+                    <li class="fragment">Object.*</li>
+                    <li class="fragment">String.*</li>
+                  </ul>
+                </section>
+
+
+                <section>
+                  <img src="imgs/phew.gif" />
+                  <div class="fragment">That's just ES2015</div>
+                </section>
+
+
+                <section>
+                  <h3>ES2016</h3>
+
+                  <div class="fragment">Array.prototype.includes</div>
+                  <div class="fragment">Exponentiation Operator</div>
+                  <div class="fragment">
+                  <pre><code style="white-space: pre" contenteditable id="es2016">let arr = [1, 2]
+console.log(arr.includes(2))
+
+console.log(2 ** 2)
+</code></pre>
+
+<pre><code id="es2016Log" style='max-height: 200px'></code><pre>
+<input type="button" onclick="runCode('es2016', 'es2016Log')" value="Run" />
 </div>
+                </section>
+
+
+
+                <section>
+                  <h2>How do I use this stuff?</h2>
                 </section>
 <!--
     END
