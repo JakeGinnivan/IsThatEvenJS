@@ -1,48 +1,53 @@
 <!doctype html>
 <html>
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-        <title>Is that even JavaScript?</title>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-        <link rel="stylesheet" href="css/reveal.css">
-        <link rel="stylesheet" href="css/theme/night.css">
+  <title>Is that even JavaScript?</title>
 
-        <!-- Theme used for syntax highlighting of code -->
-        <link rel="stylesheet" href="lib/css/zenburn.css">
+  <link rel="stylesheet" href="css/reveal.css">
+  <link rel="stylesheet" href="css/theme/night.css">
 
-        <style>
-.side-by-side {
-    display: flex;
-    align-items: 'stretch';
-}
+  <!-- Theme used for syntax highlighting of code -->
+  <link rel="stylesheet" href="lib/css/zenburn.css">
 
+  <style>
+    .side-by-side {
+      display: flex;
+      align-items: 'stretch';
+    }
+    
     .side-by-side>div:first-child {
-        flex: 0 0 50%;
-        display: flex;
-        flex-direction: column;
+      flex: 0 0 50%;
+      display: flex;
+      flex-direction: column;
     }
-        .side-by-side>div:first-child pre {
-            flex: 1;
-        }
-        .side-by-side>div:first-child code {
-            height: 100%;
-            margin: 0 10px;
-        }
+    
+    .side-by-side>div:first-child pre {
+      flex: 1;
+    }
+    
+    .side-by-side>div:first-child code {
+      height: 100%;
+      margin: 0 10px;
+    }
+    
     .side-by-side>div:last-child {
-        flex: 1;
-        display: flex;
-        flex-direction: column;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
     }
-        .side-by-side>div:last-child pre {
-            flex: 1;
-        }
-        .side-by-side>div:last-child code {
-            height: 100%;
-            margin: 0 10px;
-        }
-
+    
+    .side-by-side>div:last-child pre {
+      flex: 1;
+    }
+    
+    .side-by-side>div:last-child code {
+      height: 100%;
+      margin: 0 10px;
+    }
     /*.side-by-side>pre:first-child {
         flex: 0 0 50%;
     }
@@ -57,10 +62,10 @@
             height: 100%;
             margin: 0 10px;
         }*/
-        </style>
+  </style>
 
-        <!-- Printing and PDF exports -->
-        <script>
+  <!-- Printing and PDF exports -->
+  <script>
             var link = document.createElement( 'link' );
             link.rel = 'stylesheet';
             link.type = 'text/css';
@@ -111,164 +116,186 @@
                 }
             }
         </script>
-    </head>
-    <body>
-        <div class="reveal">
-            <div class="slides">
-                <section>
-                    <h2 class="computer">Is that even JavaScript?</h2>
-                    <br />
-                    <br />
-                    <br />
-                    <h3 class="inverted old-school">Jake Ginnivan<h3>
-                </section>
+</head>
 
-                
-                <section>
-                    <h2 class="computer">Who likes JavaScript?</h2>
-                    <div class="side-by-side">
-                        <div><pre class="fragment"><code>var a = 1 b = 1;</code></pre></div>
-                        <div><pre class="fragment"><code>// b is a global :(</code></pre></div>
-                    </div>
-                    <div class="side-by-side">
-                        <div><pre class="fragment"><code>'true' == true;
-'' == true</code></pre></div>
-                        <div><pre class="fragment"><code>// false
-// true</code></pre></div>
-                    </div>
+<body>
+  <div class="reveal">
+    <div class="slides">
+      <section>
+        <h2 class="computer">Is that even JavaScript?</h2>
+        <br />
+        <br />
+        <br />
+        <h3 class="inverted old-school">Jake Ginnivan
+          <h3>
+      </section>
 
-                    <div class="side-by-side">
-                        <div><pre class="fragment"><code>function getObj() {
+
+      <section>
+        <h2 class="computer">Who likes JavaScript?</h2>
+        <div class="side-by-side">
+          <div>
+            <pre class="fragment"><code>var a = 1 b = 1;</code></pre>
+          </div>
+          <div>
+            <pre class="fragment"><code>// b is a global :(</code></pre>
+          </div>
+        </div>
+        <div class="side-by-side">
+          <div>
+            <pre class="fragment"><code>'true' == true;
+'' == true</code></pre>
+          </div>
+          <div>
+            <pre class="fragment"><code>// false
+// true</code></pre>
+          </div>
+        </div>
+
+        <div class="side-by-side">
+          <div>
+            <pre class="fragment"><code>function getObj() {
     return { haha: "ha!" };
-} getObj();</code></pre></div>
-                        <div><pre class="fragment"><code>// undefined - { is a scope, not an object</code></pre></div>
-                    </div>
+} getObj();</code></pre>
+          </div>
+          <div>
+            <pre class="fragment"><code>// undefined - { is a scope, not an object</code></pre>
+          </div>
+        </div>
 
-                    <div class="side-by-side">
-                        <div><pre class="fragment"><code>function getObj() {
+        <div class="side-by-side">
+          <div>
+            <pre class="fragment"><code>function getObj() {
     return
         "ha!";
-} getObj();</code></pre></div>
-                        <div><pre class="fragment"><code>// undefined - ASI
+} getObj();</code></pre>
+          </div>
+          <div>
+            <pre class="fragment"><code>// undefined - ASI
 return;
-    "ha!";</code></pre></div>
-                    </div>
+    "ha!";</code></pre>
+          </div>
+        </div>
 
-<div class="side-by-side">
-                        <div><pre class="fragment"><code>for (var i = 0; i < 10; i++) {
+        <div class="side-by-side">
+          <div>
+            <pre class="fragment"><code>for (var i = 0; i < 10; i++) {
   setTimeout(
     function() { console.log (i); },
     10)
-};</code></pre></div>
-                        <div><pre class="fragment"><code>// outputs 10, 10, 10, 10, 10,
-// 10, 10, 10, 10, 10</code></pre></div>
-                    </div>
-                    
-                </section>
+};</code></pre>
+          </div>
+          <div>
+            <pre class="fragment"><code>// outputs 10, 10, 10, 10, 10,
+// 10, 10, 10, 10, 10</code></pre>
+          </div>
+        </div>
 
-                <section>
-                    <section>
-                        <img src="/imgs/brendan-eich-2-sized.jpg" />
-                        <p class="fragment">Brendan Eich</p>
-                    </section>
-                    <section>
-                        <div>... and he saved us from</div>
-                        <img src="/imgs/javacup.jpg" />
-                    </section>
-                </section>
+      </section>
 
-                <section>
-                    <h2>History of JavaScript</h2>
-                    <p>
-                        <span class="fragment">
+      <section>
+        <section>
+          <img src="/imgs/brendan-eich-2-sized.jpg" />
+          <p class="fragment">Brendan Eich</p>
+        </section>
+        <section>
+          <div>... and he saved us from</div>
+          <img src="/imgs/javacup.jpg" />
+        </section>
+      </section>
+
+      <section>
+        <h2>History of JavaScript</h2>
+        <p>
+          <span class="fragment">
                             May 1995 - Mocha was born
                         </span>
-                        <span class="fragment">... in 10 days</span>
-                    </p>
-                    <p class="fragment">
-                        September 1995 - Renamed to LiveScript
-                    </p>
-                    <p class="fragment">
-                        December 1995 - Renamed to JavaScript, trademark issued only to Netscape
-                    </p>
-                    <p class="fragment">
-                        August 1996 - Microsoft released JScript
-                    </p>
-                    <p class="fragment">Went to European Computer Manufacturers Association (ECMA) to create the standard</p>
-                    <p class="fragment">1997 - ECMAScript 1 (ES1) was born</p>
+          <span class="fragment">... in 10 days</span>
+        </p>
+        <p class="fragment">
+          September 1995 - Renamed to LiveScript
+        </p>
+        <p class="fragment">
+          December 1995 - Renamed to JavaScript, trademark issued only to Netscape
+        </p>
+        <p class="fragment">
+          August 1996 - Microsoft released JScript
+        </p>
+        <p class="fragment">Went to European Computer Manufacturers Association (ECMA) to create the standard</p>
+        <p class="fragment">1997 - ECMAScript 1 (ES1) was born</p>
 
-                    <aside class="notes">
-                        Netscape was doing a deal with Sun Microsystems to make Java the programming language of the web,
-                        but there was an idea to make a little brother scripting language. Brendan had 10 days to produce a demo.
+        <aside class="notes">
+          Netscape was doing a deal with Sun Microsystems to make Java the programming language of the web, but there was an idea to
+          make a little brother scripting language. Brendan had 10 days to produce a demo. Mainly called JavaScript because
+          Java was very popular at the time This triggered netscape to want to create a standard because they were being
+          embraced and extended. W3C told netscape to go away
+        </aside>
+      </section>
 
-                        Mainly called JavaScript because Java was very popular at the time
+      <section>
+        <h2>How ECMAScript evolved</h2>
+        <p class="fragment">1998 - ECMAScript 2 (ES2)</p>
+        <p class="fragment">1999 - ECMAScript 3 (ES3)</p>
+        <p class="fragment"><img src="imgs/tumbleweed.gif" /></p>
+        <p class="fragment">2009 - ECMAScript 5 (ES5)</p>
+        <p class="fragment">2015 - ECMAScript <span class="fragment strike">6 (ES6)</span>
+          <div class="fragment" style="margin-left: 38%">2015 (ES2015)</div>
+        </p>
+      </section>
 
-                        This triggered netscape to want to create a standard because they were being embraced and extended. W3C told netscape to go away
-                    </aside>
-                </section>
+      <section>
+        <h2>ES2015 was a HUGE release!</h2>
+        <br />
+        <div class="fragment">
+          <h3>The goals were better support for:</h3>
+          <ol>
+            <li>Complex Apps</li>
+            <li>Libraries</li>
+            <li>Code Generators</li>
+          </ol>
+        </div>
 
-                <section>
-                    <h2>How ECMAScript evolved</h2>
-                    <p class="fragment">1998 - ECMAScript 2 (ES2)</p>
-                    <p class="fragment">1999 - ECMAScript 3 (ES3)</p>
-                    <p class="fragment"><img src="imgs/tumbleweed.gif" /></p>
-                    <p class="fragment">2009 - ECMAScript 5 (ES5)</p>
-                    <p class="fragment">2015 - ECMAScript <span class="fragment strike">6 (ES6)</span><div class="fragment" style="margin-left: 38%">2015 (ES2015)</div></p>
-                </section>
+        <div class="fragment">
+          <br /> Also, must be backwards compatible. i.e <i>Thou shalt not break the web!</i>
+        </div>
+      </section>
 
-                <section>
-                    <h2>ES2015 was a HUGE release!</h2>
-                    <br />
-                    <div class="fragment">
-                      <h3>The goals were better support for:</h3>
-                      <ol>
-                        <li>Complex Apps</li>
-                        <li>Libraries</li>
-                        <li>Code Generators</li>
-                      </ol>
-                    </div>
-
-                    <div class="fragment">
-                      <br />
-                      Also, must be backwards compatible. i.e <i>Thou shalt not break the web!</i>
-                    </div>
-                </section>
-
-<!--
+      <!--
     BLOCK SCOPING
 -->
-                <section>
-<h3>Block Scoping</h3>
-<pre><code contenteditable id="blockScoping" style="white-space: pre">var foo = 1
+      <section>
+        <h3>Block Scoping</h3>
+        <pre><code contenteditable id="blockScoping" style="white-space: pre">var foo = 1
 if (true) {
     var foo = 5
     console.log(foo)
 }
 console.log(foo)</code></pre>
-                
-<pre><code id="blockScopingLog"></code><pre>
-<input type="button" onclick="runCode('blockScoping', 'blockScopingLog')" value="Run" />
-                </section>
 
-<!--
+        <pre><code id="blockScopingLog"></code>
+          <pre>
+            <input type="button" onclick="runCode('blockScoping', 'blockScopingLog')" value="Run" />
+      </section>
+
+      <!--
     CLASSES
 -->
-                <section>
-                    <h3>Classes</h3>
-                    <div class="side-by-side">
-<div>
-<h4>ES5</h4>
-<pre><code>function Square(width, height) {
+      <section>
+        <h3>Classes</h3>
+        <div class="side-by-side">
+          <div>
+            <h4>ES5</h4>
+            <pre><code>function Square(width, height) {
     this.width = width
     this.height = height
 }
 Square.prototype.area = function() {
     return this.width * this.height
 }</code></pre>
-</div>
-<div class="fragment">
-<h4>ES6</h4>
-<pre><code>class Square {
+          </div>
+          <div class="fragment">
+            <h4>ES6</h4>
+            <pre><code>class Square {
     constructor(width, height) {
         this.width = width
         this.height = height
@@ -278,14 +305,14 @@ Square.prototype.area = function() {
         return this.width * this.height
     }
 }</code></pre>
-</div>
-</div>
-                </section>
+          </div>
+        </div>
+      </section>
 
 
-                <section>
-                    <h3>Classes contd</h3>
-<pre><code>class ReactComponent extends React.Component {
+      <section>
+        <h3>Classes contd</h3>
+        <pre><code>class ReactComponent extends React.Component {
   static propTypes = {
     prop1: React.PropTypes.string
   }
@@ -294,17 +321,17 @@ Square.prototype.area = function() {
     super(props)
   }
 }</code></pre>
-                </section>
+      </section>
 
-<!--
+      <!--
     Arrow Functions
 -->
-                <section>
-                    <h3>Arrow Functions</h3>
-                    <div class="side-by-side">
-<div>
-<h4>ES5</h4>
-<pre><code>class Api {
+      <section>
+        <h3>Arrow Functions</h3>
+        <div class="side-by-side">
+          <div>
+            <h4>ES5</h4>
+            <pre><code>class Api {
   parseResult(result) {
   ...
   }
@@ -316,10 +343,10 @@ Square.prototype.area = function() {
     })
   }
 }</code></pre>
-</div>
-<div class="fragment">
-<h4>ES6</h4>
-<pre><code>class Api {
+          </div>
+          <div class="fragment">
+            <h4>ES6</h4>
+            <pre><code>class Api {
   parseResult(result) {
     ...
   }
@@ -330,22 +357,22 @@ Square.prototype.area = function() {
     })
   }
 }</code></pre>
-</div>
-</div>
+          </div>
+        </div>
 
-<pre class="fragment"><code>() => ({ implicit: 'return object' })</code></pre>
-                </section>
+        <pre class="fragment"><code>() => ({ implicit: 'return object' })</code></pre>
+      </section>
 
 
-<!--
+      <!--
     Promises
 -->
-                <section>
-                    <h3>Promises</h3>
-                    <div class="side-by-side">
-<div>
-<h4>Before</h4>
-<pre><code>class Api {
+      <section>
+        <h3>Promises</h3>
+        <div class="side-by-side">
+          <div>
+            <h4>Before</h4>
+            <pre><code>class Api {
   parseResult(result) {
     ...
   }
@@ -356,10 +383,10 @@ Square.prototype.area = function() {
     })
   }
 }</code></pre>
-</div>
-<div class="fragment">
-<h4>ES6</h4>
-<pre><code>class Api {
+          </div>
+          <div class="fragment">
+            <h4>ES6</h4>
+            <pre><code>class Api {
   parseResult(result) {
     ...
   }
@@ -369,16 +396,16 @@ Square.prototype.area = function() {
       .then(result => parseResult(result))
   }
 }</code></pre>
-</div>
-</div>
-                </section>
+          </div>
+        </div>
+      </section>
 
-                <section>
-                    <h3>Promises</h3>
-                    <div class="side-by-side">
-<div>
-<h4>Before</h4>
-<pre><code>step1(function (value1) {
+      <section>
+        <h3>Promises</h3>
+        <div class="side-by-side">
+          <div>
+            <h4>Before</h4>
+            <pre><code>step1(function (value1) {
     step2(value1, function(value2) {
         step3(value2, function(value3) {
             step4(value3, function(value4) {
@@ -387,10 +414,10 @@ Square.prototype.area = function() {
         });
     });
 });</code></pre>
-</div>
-<div class="fragment">
-<h4>ES6</h4>
-<pre><code>apiCall()
+          </div>
+          <div class="fragment">
+            <h4>ES6</h4>
+            <pre><code>apiCall()
   .then(promisedStep1)
   .then(promisedStep2)
   .then(promisedStep3)
@@ -402,17 +429,17 @@ Square.prototype.area = function() {
       // Handle any error from
       // all above steps
   })</code></pre>
-</div>
-</div>
-                </section>
+          </div>
+        </div>
+      </section>
 
 
-<!--
+      <!--
     Enhanced Object Literals
 -->
-                <section>
-<h3>Enhanced Object Literals</h3>
-<pre><code style="white-space: pre">var obj = {
+      <section>
+        <h3>Enhanced Object Literals</h3>
+        <pre><code style="white-space: pre">var obj = {
     // __proto__
     __proto__: theProtoObj,
 
@@ -428,207 +455,241 @@ Square.prototype.area = function() {
     // Computed (dynamic) property names
     [ 'prop_' + (() => 42)() ]: 42
 };</code></pre>
-                </section>
+      </section>
 
+      <section>
+        <img src="imgs/scatter.gif" />
+      </section>
 
-<!--
+      <!--
     Modules SECTION
 -->
-                <section>
-                  <h2>Modules</h2>
-                </section>
+      <section>
+        <h2>Modules</h2>
+      </section>
 
 
-                <section>
-                  <img src="imgs/scriptTags.png" />
-                </section>
+      <section>
+        <img src="imgs/scriptTags.png" />
+      </section>
 
 
-                <section data-background="white">
-                  <img style="display: inline-block; width: 40%; vertical-align: middle; border: none; box-shadow: none" src="imgs/requirejs.jpg" />
+      <section data-background="white">
+        <img style="display: inline-block; width: 40%; vertical-align: middle; border: none; box-shadow: none" src="imgs/requirejs.jpg"
+        />
 
-                  <img style="display: inline-block; width: 40%; vertical-align: middle; border: none; box-shadow: none" src="imgs/angularjs.png" />
-                </section>
-
-
-                <section data-background="white">
-                  <div><img style="border: none; box-shadow: none" src="imgs/nodejs.png" /><div>
-                  <div class="fragment">
-                    <img style="display: inline-block; width: 40%; vertical-align: middle; border: none; box-shadow: none" src="imgs/npm.png" />
-
-                    <img style="display: inline-block; width: 40%; vertical-align: middle; border: none; box-shadow: none" src="imgs/commonjs.png" />
-                  </div>
-                </section>
+        <img style="display: inline-block; width: 40%; vertical-align: middle; border: none; box-shadow: none" src="imgs/angularjs.png"
+        />
+      </section>
 
 
-                <section data-background="white">
-                  <img style="display: inline-block; width: 40%; vertical-align: middle; border: none; box-shadow: none" src="imgs/browserify.png" />
+      <section data-background="white">
+        <div><img style="border: none; box-shadow: none" src="imgs/nodejs.png" />
+          <div>
+            <div class="fragment">
+              <img style="display: inline-block; width: 40%; vertical-align: middle; border: none; box-shadow: none" src="imgs/npm.png"
+              />
 
-                  <img style="display: inline-block; width: 40%; vertical-align: middle; border: none; box-shadow: none" src="imgs/webpack.png" />
+              <img style="display: inline-block; width: 40%; vertical-align: middle; border: none; box-shadow: none" src="imgs/commonjs.png"
+              />
+            </div>
+      </section>
 
-                  <div><img style="border: none; box-shadow: none" src="imgs/jspm.png" /><div>
-                </section>
+
+      <section data-background="white">
+        <img style="display: inline-block; width: 40%; vertical-align: middle; border: none; box-shadow: none" src="imgs/browserify.png"
+        />
+
+        <img style="display: inline-block; width: 40%; vertical-align: middle; border: none; box-shadow: none" src="imgs/webpack.png"
+        />
+
+        <div><img style="border: none; box-shadow: none" src="imgs/jspm.png" />
+          <div>
+      </section>
 
 
-                <section>
-<h3>Modules</h3>
-<pre><code style="white-space: pre">import _ from 'lodash'
-import { sum } from './math'
+      <section>
+        <h3>Modules</h3>
+        <pre><code style="white-space: pre">import _ from 'lodash'
+import { sum } from './math' // sum(number, number)
 
-function pow() {
+function sumAll() {
   return _.reduce(arguments, (total, n) => sum(total, n), 0)
 }
-export { pow }
-export default pow</code></pre>
-                </section>
+export { sumAll }
+export default sumAll</code></pre>
+      </section>
 
-                <section>
-<h3>System.JS</h3>
-<pre><code style="white-space: pre">// Dynamic loading – ‘System’ is default loader
+      <section>
+        <h3>System.JS</h3>
+        <pre><code style="white-space: pre">// Dynamic loading – ‘System’ is default loader
 System.import('lib/math').then(function(m) {
   alert("2π = " + m.sum(m.pi, m.pi));
 });</code></pre>
-                </section>
-<!--
+        <div class="fragment"><img src="imgs/standards.png" /></div>
+      </section>
+      <!--
     ENDModules SECTION
 -->
 
-                <section>
-                  <h2>Why ECMA 2015?</h2>
-                  <br />
-                  <br />
-                  <div class="fragment">ES6 was way too large</div>
-                </section>
+      <section>
+        <h2>Why not 'ES6'?</h2>
+        <br />
+        <br />
+        <div class="fragment">ES6 was way too large</div>
+      </section>
 
-                <section>
-                  <h2>Solution: the TC39 process</h2>
+      <section>
+        <h2>Solution: the TC39 process</h2>
+        <div class="fragment">
+          <h4 style='margin-top: 30px; margin-bottom: 0'>Stage 0: Strawman</h4>
+          Submitted by a TC39 member or contributor, just an idea
+        </div>
 
-                  <div class="fragment">
-                    <h4 style='margin-top: 30px; margin-bottom: 0'>Stage 0: Strawman</h4>
-                    Submitted by a TC39 member or contributor, just an idea
-                  </div>
+        <div class="fragment">
+          <h4 style='margin-top: 30px; margin-bottom: 0'>Stage 1: proposal</h4>
+          Needs a champion, needs to have problem, solution and issues
+        </div>
 
-                  <div class="fragment">
-                    <h4 style='margin-top: 30px; margin-bottom: 0'>Stage 1: proposal</h4>
-                    Needs a champion, needs to have problem, solution and issues
-                  </div>
+        <div class="fragment">
+          <h4 style='margin-top: 30px; margin-bottom: 0'>Stage 2: draft</h4>
+          Eventual inclusion of feature is likely, must be quite complete and have implementations (in babel/browsers)
+        </div>
 
-                  <div class="fragment">
-                    <h4 style='margin-top: 30px; margin-bottom: 0'>Stage 2: draft</h4>
-                    Eventual inclusion of feature is likely, must be quite complete and have implementations
-                  </div>
+        <div class="fragment">
+          <h4 style='margin-top: 30px; margin-bottom: 0'>Stage 3: candidate</h4>
+          Spec must be complete, needs feedback
+        </div>
 
-                  <div class="fragment">
-                    <h4 style='margin-top: 30px; margin-bottom: 0'>Stage 3: candidate</h4>
-                    Spec must be complete, needs feedback
-                  </div>
+        <div class="fragment">
+          <h4 style='margin-top: 30px; margin-bottom: 0'>Stage 4: finished</h4>
+          Signed off, has acceptance tests, been used practically
+        </div>
+      </section>
 
-                  <div class="fragment">
-                    <h4 style='margin-top: 30px; margin-bottom: 0'>Stage 4: finished</h4>
-                    Signed off, has acceptance tests, been used practically
-                  </div>
-                </section>
+      <section>
+        <h2>TC39 process = Yearly releases of JS</h2>
+      </section>
 
-                <section>
-<h3>Template strings</h3>
-<pre><code style="white-space: pre">let multiline = `This
-is a
-multiline string!`</code></pre>
 
-<pre class="fragment"><code style="white-space: pre">let jake = { name: 'Jake', employer: 'Readify' }
+      <section>
+          <img src="imgs/start.gif" />
+      </section>
+      <section>
+        <h3>Template strings</h3>
+        <div class="side-by-side">
+          <div>
+            <h4>Before</h4>
+            <pre><code style="white-space: pre" contenteditable>let html = "<div>'\n'  <span>" +
+  "hi</span>'\n'</div>"</code></pre>
+          </div>
+          <div class="fragment">
+            <h4>After</h4>
+            <pre><code style="white-space: pre">let multiline = `<div>
+  <span>hi</span>
+</div>`</code></pre>
+          </div>
+        </div>
+
+        <div class="fragment">
+          <pre><code style="white-space: pre" contenteditable id="templateStrings">let jake = { name: 'Jake', employer: 'Readify' }
   
-let formatted = `My name is ${jake.name} and I work with ${jake.employer}`</code></pre>
-                </section>
+console.log(`My name is ${jake.name} and I work with ${jake.employer}`)</code></pre>
+          <pre><code id="templateStringsLog"></code></pre>
 
-                <section>
-<h3>Destructuring</h3>
+          <input type="button" onclick="runCode('templateStrings', 'templateStringsLog')" value="Run" />
+        </div>
+      </section>
 
-<pre><code style="white-space: pre" contenteditable id="destructuring">let jake = {
+      <section>
+        <h3>Destructuring</h3>
+          <div>
+            <h4>Before</h4>
+            <pre><code style="white-space: pre">let jake = {
   name: 'Jake',
-  employer: { name: 'Readify' },
-  contact: [
-    { type: 'twitter', value: '@JakeGinnivan' },
-    { type: 'email', value: 'jake@ginnivan.net' },
-  ]}
-let {
-  name, employer: { name: companyName},
-  contact: [ { value: primaryContact }, { value: secondaryContact }] } = jake
-  
-let formatted = `My name is ${name} and I work with ${companyName}
-contact me at ${primaryContact} or ${secondaryContact}`
-console.log(formatted)</code></pre>
-
-<pre><code id="destructuringLog"></code><pre>
-<input type="button" onclick="runCode('destructuring', 'destructuringLog')" value="Run" />
-                </section>
-
-                <section>
-<h3>Destructuring for method args</h3>
-
-<pre><code style="white-space: pre" contenteditable id="destructuringMethod">let jake = {
-  name: 'Jake',
-  employer: { name: 'Readify' },
-  contact: [
-    { type: 'twitter', value: '@JakeGinnivan' },
-    { type: 'email', value: 'jake@ginnivan.net' },
-  ]}
-
-function formatName({
-  name, employer: { name: companyName},
-  contact: [ { value: primaryContact }, { value: secondaryContact }]
-}) {
-  let formatted = `My name is ${name} and I work with ${companyName}
-  contact me at ${primaryContact} or ${secondaryContact}`
-  console.log(formatted)
+  employer: { name: 'Readify' }
 }
 
-formatName(jake)
+let name = jake.name
+let companyName = jake.employer.name
+
+console.log(`${name}, ${companyName}`)</code></pre>
+          </div>
+          <div class="fragment">
+            <h4>After</h4>
+            <pre><code style="white-space: pre" contenteditable id="destructuring">let jake = {
+  name: 'Jake',
+  employer: { name: 'Readify' }
+}
+
+let { name, employer: { name: companyName} } = jake
+
+console.log(`${name}, ${companyName}`)</code></pre>
+
+            <pre><code id="destructuringLog"></code>
+            <input type="button" onclick="runCode('destructuring', 'destructuringLog')" value="Run" />
+          </div>
+      </section>
+
+      <section>
+        <h3>Destructuring for method args</h3>
+
+        <pre><code style="white-space: pre" contenteditable id="destructuringMethod">let jake = {
+  name: 'Jake',
+  employer: { name: 'Readify' }
+}
+
+const formatName = ({ name, employer: { name: companyName } }) => (
+  `My name is ${name} and I work with ${companyName}`
+)
+
+console.log(formatName(jake))
 </code></pre>
 
-<pre><code id="destructuringMethodLog"></code><pre>
-<input type="button" onclick="runCode('destructuringMethod', 'destructuringMethodLog')" value="Run" />
-                </section>
+        <pre><code id="destructuringMethodLog"></code></pre>
+        <input type="button" onclick="runCode('destructuringMethod', 'destructuringMethodLog')" value="Run" />
+      </section>
 
-                <section>
-<h3>Default + Rest + Spread</h3>
+      <section>
+        <h3>Default + Rest + Spread</h3>
+        <pre><code style="white-space: pre" contenteditable id="spread">function sum(x, y=12) { return x + y }</code></pre>
+        <pre class="fragment"><code style="white-space: pre" contenteditable id="spread">function format(x, ...args) { return console.log(x, args) }
+format('Hi {0}', 'Jake') // Hi, ['Jake']</code></pre>
+        <pre class="fragment"><code style="white-space: pre" contenteditable id="spread">sum(...[1, 2]) // 3 - instead of sum.apply([1, 2])</code></pre>
+      </section>
 
-<pre><code style="white-space: pre" contenteditable id="spread">function sum(x, y=12) { return x + y }
+      <section>
+        <h3>Spread continued</h3>
+        <pre><code style="white-space: pre">var arr = [2, 3]
+[1, ...arr, 4] // [1, 2, 3, 4]</code></pre>
 
-function (x, ...rest) { return x * rest.length }
-
-sum(...[1, 2]) // 3
-</code></pre>
-                </section>
-
-                <section>
-<h3>Spread continued</h3>
-
-<pre><code style="white-space: pre">var arr = [2, 3]
-[1, ...arr, 4] // [1, 2, 3, 4]
-
-//
-// STAGE 2 Features
-//
+<div class="fragment">
+  <h4>STAGE 2 Features</h4>
+<pre><code style="white-space: pre">
 // Rest Properties
 let { x, y, ...z } = { x: 1, y: 2, a: 3, b: 4 };
 x; // 1
 y; // 2
 z; // { a: 3, b: 4 }
+</code></pre>
 
+<pre class="fragment"><code style="white-space: pre">
 // Spread properties
 let n = { x, y, ...z };
 </code></pre>
-                </section>
+</div>
+      </section>
 
-<!--Type improvements-->
+      <!--Type improvements-->
 
-                <section>
-<h3>Symbols / Iterators</h3>
+      <section>
+        <h3>Symbols / Iterators</h3>
 
-<pre><code style="white-space: pre" contenteditable id="symbols">// Symbols
+        <pre><code style="white-space: pre">// Symbols
 Symbol('Hi') === Symbol('Hi') // false
-
-let fibonacci = {
+</code></pre>
+<div class="fragment">
+<pre><code style="white-space: pre" contenteditable id="symbols">let fibonacci = {
   [Symbol.iterator]() { // Symbol.iterator is a well known symbol
     let pre = 0, cur = 1;
     return {
@@ -641,18 +702,19 @@ let fibonacci = {
   }
 }
 
-for (var n of fibonacci) {  if (n > 1000) break; console.log(n); }
+for (var n of fibonacci) { if (n > 1000) break; console.log(n); }
 </code></pre>
 
-<pre><code id="symbolsLog" style='max-height: 150px'></code><pre>
-<input type="button" onclick="runCode('symbols', 'symbolsLog')" value="Run" />
-                </section>
+        <pre><code id="symbolsLog" style='max-height: 150px'></code></pre>
+            <input type="button" onclick="runCode('symbols', 'symbolsLog')" value="Run" />
+          </div>
+      </section>
 
 
-                <section>
-<h3>Generators</h3>
+      <section>
+        <h3>Generators</h3>
 
-<pre><code style="white-space: pre" contenteditable id="generators">let fibonacci = {
+        <pre><code style="white-space: pre" contenteditable id="generators">let fibonacci = {
   [Symbol.iterator]: function*() {
     var pre = 0, cur = 1;
     for (;;) {
@@ -667,15 +729,60 @@ for (var n of fibonacci) {  if (n > 1000) break; console.log(n); }
 for (var n of fibonacci) { if (n > 1000) break; console.log(n); }
 </code></pre>
 
-<pre><code id="generatorsLog" style='max-height: 200px'></code><pre>
-<input type="button" onclick="compile('generators', 'generatorsLog')" value="Compile" />
-                </section>
+        <pre><code id="generatorsLog" style='max-height: 200px'></code>
+          <pre>
+            <input type="button" onclick="runCode('generators', 'generatorsLog')" value="Run" />
+      </section>
+
+      <section>
+        <img src="imgs/phew.gif" style="width: 500px; height: 300px;" />
+        <div class="fragment">That's just ES2015</div>
+      </section>
 
 
-                <section>
-<h3>Async/Await - Stage 3</h3>
+      <section>
+        <h3>ES2016</h3>
 
-<pre><code style='white-space: pre; max-height: 500px'>import { usingFixture } from 'testHelpers/portal-fixture'
+        <div class="fragment">Array.prototype.includes</div>
+        <div class="fragment">Exponentiation Operator</div>
+        <div class="fragment">
+          <pre><code style="white-space: pre" contenteditable id="es2016">let arr = [1, 2]
+console.log(arr.includes(2))
+
+console.log(2 ** 2)
+</code></pre>
+
+          <pre><code id="es2016Log" style='max-height: 200px'></code>
+            <pre>
+              <input type="button" onclick="runCode('es2016', 'es2016Log')" value="Run" />
+        </div>
+      </section>
+
+      <section>
+          <h3>Some cool things to look out for</h3>
+          <img src="imgs/look.gif" />
+      </section>
+      
+
+<section>
+        <h3>Async/Await - Stage 3</h3>
+
+        <pre><code style='white-space: pre; max-height: 500px'>import fetch from 'fetch'
+
+try {
+  var result = await fetch('/api/getdata')
+  var nestedResult = await fetch('/api/getdata2?q=' + result)
+  return { success: true, result: nestedResult }
+} catch (err) {
+  return { success: false, error: err }
+}
+</code></pre>
+      </section>
+
+      <section>
+        <h3>Async/Await - Stage 3 contd</h3>
+
+        <pre><code style='white-space: pre; max-height: 500px'>import { usingFixture } from 'testHelpers/portal-fixture'
 import fetchMock from 'fetch-mock'
 import { ListUser } from '../components/users-list'
 import { Link } from 'react-router'
@@ -698,63 +805,92 @@ describe('Manage users', function () {
   }))
 })
 </code></pre>
-                </section>
+      </section>
 
-                <section>
-                  <h3>Type Improvements</h3>
-                  <ul>
-                    <li>Maps</li>
-                    <li class="fragment">WeakMaps</li>
-                    <li class="fragment">Sets</li>
-                    <li class="fragment">WeakSets</li>
-                    <li class="fragment">Proxies</li>
-                    <li class="fragment">Number.*</li>
-                    <li class="fragment">Math.*</li>
-                    <li class="fragment">Array.*</li>
-                    <li class="fragment">Object.*</li>
-                    <li class="fragment">String.*</li>
-                  </ul>
-                </section>
+      <section>
+        <h3>Type Improvements</h3>
+        <ul>
+          <li>Maps</li>
+          <li class="fragment">WeakMaps</li>
+          <li class="fragment">Sets</li>
+          <li class="fragment">WeakSets</li>
+          <li class="fragment">Proxies</li>
+          <li class="fragment">Number.*</li>
+          <li class="fragment">Math.*</li>
+          <li class="fragment">Array.*</li>
+          <li class="fragment">Object.*</li>
+          <li class="fragment">String.*</li>
+        </ul>
+      </section>
 
+      <section>
+        <h3>Decorators - Stage 2</h3>
 
-                <section>
-                  <img src="imgs/phew.gif" />
-                  <div class="fragment">That's just ES2015</div>
-                </section>
+        <pre><code style='white-space: pre; max-height: 500px'>class Foo {
+  constructor() {
+    this.method = this.method.bind(this) // Bind to instance
+  }
 
-
-                <section>
-                  <h3>ES2016</h3>
-
-                  <div class="fragment">Array.prototype.includes</div>
-                  <div class="fragment">Exponentiation Operator</div>
-                  <div class="fragment">
-                  <pre><code style="white-space: pre" contenteditable id="es2016">let arr = [1, 2]
-console.log(arr.includes(2))
-
-console.log(2 ** 2)
+  method() {
+    // Method is on the prototype
+  }
+}
 </code></pre>
 
-<pre><code id="es2016Log" style='max-height: 200px'></code><pre>
-<input type="button" onclick="runCode('es2016', 'es2016Log')" value="Run" />
-</div>
-                </section>
+<pre class="fragment"><code style='white-space: pre; max-height: 500px'>import autobind from 'autobind-decorator'
+@autobind
+class Foo {
+  method() {
+    // autobind decorator binds all prototype functions to instance on construction
+  }
+}
+
+function autobind(Constructor) {
+  return class Bound extends Constructor {
+    constructor(...rest) {
+      super(...rest)
+      // bind all the functions!
+    }
+  }
+}
+</code></pre>
+      </section>
+
+      <section>
+        <h2>How do I use this stuff?</h2>
+      </section>
 
 
+      <section>
+        <img src="imgs/babel.png" style="vertical-align: middle; border: none; box-shadow: none" />
+        <img src="imgs/typescript-logo.png" style="vertical-align: middle; border: none; box-shadow: none" />
+      </section>
 
-                <section>
-                  <h2>How do I use this stuff?</h2>
-                </section>
-<!--
+      <section data-background="white">
+        <img style="display: inline-block; width: 40%; vertical-align: middle; border: none; box-shadow: none" src="imgs/browserify.png"
+        />
+
+        <img style="display: inline-block; width: 40%; vertical-align: middle; border: none; box-shadow: none" src="imgs/webpack.png"
+        />
+
+        <div><img style="border: none; box-shadow: none" src="imgs/jspm.png" />
+          <div>
+      </section>
+
+      <section>
+        <h4>Questions?</h4>
+        <img src="imgs/questions.gif" style="vertical-align: middle; border: none; box-shadow: none" />
+      </section>
+      <!--
     END
 -->
-            </div>
-        </div>
+      </div>
+      </div>
 
-        <script src="lib/js/head.min.js"></script>
-        <script src="js/reveal.js"></script>
+      <script src="lib/js/head.min.js"></script>
+      <script src="js/reveal.js"></script>
 
-        <script>
+      <script>
             // More info https://github.com/hakimel/reveal.js#configuration
             Reveal.initialize({
                 history: true,
@@ -769,5 +905,6 @@ console.log(2 ** 2)
                 ]
             });
         </script>
-    </body>
+</body>
+
 </html>
